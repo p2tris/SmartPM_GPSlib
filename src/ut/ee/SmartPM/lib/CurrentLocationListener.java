@@ -1,11 +1,11 @@
 package ut.ee.SmartPM.lib;
 
-import java.util.Iterator;
 import java.util.List;
 
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class CurrentLocationListener implements LocationListener {
@@ -19,24 +19,26 @@ public class CurrentLocationListener implements LocationListener {
 		this.outLoc = outLoc;
 		this.autolabel = autolabel;
 		this.locList = locList;
+		Log.d("LIB currentloclist",locList.toString());
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-	    Double lat = location.getLatitude();
-	    Double lon = location.getLongitude();
-
-	    outLoc = ("Latitude = " + lat + " Longitude = " + lon);
-	    autolabel.setText(outLoc);
-	    
+	    double lat = location.getLatitude();
+	    double lon = location.getLongitude();
+	    	    
+	    Boolean isListed = false;
 	    for (rulesObject<Double, Double, Double, Double, String> rulesObject : locList) {
 			if ((lat < rulesObject.getTopLat()) && (lat > rulesObject.getBottomLat()) && (lon > rulesObject.getTopLon()) && (lon < rulesObject.getBottomLon())) {
 				autolabel.setText(rulesObject.getName());
+				isListed = true;
 				return;
 			}
 		}
-	   
-//	    Log.d("LOC", outLoc);
+	    if(!isListed){
+	    	outLoc = "NotMapped position: " + ("Latitude = " + lat + " Longitude = " + lon);
+	    	autolabel.setText(outLoc);
+	    }
 	}
 
 	@Override
