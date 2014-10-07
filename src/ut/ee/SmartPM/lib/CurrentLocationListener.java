@@ -1,9 +1,11 @@
 package ut.ee.SmartPM.lib;
 
+import java.util.Iterator;
+import java.util.List;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 public class CurrentLocationListener implements LocationListener {
@@ -11,20 +13,29 @@ public class CurrentLocationListener implements LocationListener {
 
 	String outLoc;
 	TextView autolabel;
+	List<rulesObject<Double, Double, Double, Double, String>> locList;
 
-	public CurrentLocationListener(String outLoc, TextView autolabel) {
+	public CurrentLocationListener(String outLoc, TextView autolabel, List<rulesObject<Double, Double, Double, Double, String>> locList) {
 		this.outLoc = outLoc;
 		this.autolabel = autolabel;
+		this.locList = locList;
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-	    location.getLatitude();
-	    location.getLongitude();
+	    Double lat = location.getLatitude();
+	    Double lon = location.getLongitude();
 
+	    outLoc = ("Latitude = " + lat + " Longitude = " + lon);
 	    autolabel.setText(outLoc);
-	    outLoc = ("Latitude = " + location.getLatitude() + " Longitude = " + location.getLongitude());
-	    autolabel.setText(outLoc);
+	    
+	    for (rulesObject<Double, Double, Double, Double, String> rulesObject : locList) {
+			if ((lat < rulesObject.getTopLat()) && (lat > rulesObject.getBottomLat()) && (lon > rulesObject.getTopLon()) && (lon < rulesObject.getBottomLon())) {
+				autolabel.setText(rulesObject.getName());
+				return;
+			}
+		}
+	   
 //	    Log.d("LOC", outLoc);
 	}
 
