@@ -18,10 +18,12 @@ public class MyClass implements LibInterface{
 	public String useMyLib(Context context, TextView autolabel, String rules) {
 		
 		// Splits the string and makes it to object that we can work with 
-	    for(String loc : rules.split(";")){
-	    	String[] elem = loc.split("\\|");
-	    	locList.add(new rulesObject<Double, Double, Double, Double, String>(Double.parseDouble(elem[0]), Double.parseDouble(elem[1]), Double.parseDouble(elem[2]), Double.parseDouble(elem[3]), elem[4]));
-	    }
+//	    for(String loc : rules.split(";")){
+//	    	String[] elem = loc.split("\\|");
+//	    	locList.add(new rulesObject<Double, Double, Double, Double, String>(Double.parseDouble(elem[0]), Double.parseDouble(elem[1]), Double.parseDouble(elem[2]), Double.parseDouble(elem[3]), elem[4]));
+//	    }
+	    
+	    new parseXML(locList).execute(rules);
 		
 		String outLoc = "";
 
