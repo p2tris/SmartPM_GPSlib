@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class parseXML extends AsyncTask<String, Void, Void>{
 	
@@ -56,7 +57,7 @@ public class parseXML extends AsyncTask<String, Void, Void>{
 
 	            }
 	        } catch (Exception e) {
-	            System.out.println("XML Pasing Excpetion = " + e);
+	            Log.e("GPS parseXML", "XML Pasing Excpetion = " + e);
 	        }
 		return null;		
 		
