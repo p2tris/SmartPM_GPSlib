@@ -41,7 +41,7 @@ public class parseXML extends AsyncTask<String, Void, Void>{
             Document doc = db.parse(new InputSource(url.openStream()));
             doc.getDocumentElement().normalize();
 
-            NodeList nodeList = doc.getElementsByTagName("loc");
+            NodeList nodeList = doc.getElementsByTagName("data_value");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
 
