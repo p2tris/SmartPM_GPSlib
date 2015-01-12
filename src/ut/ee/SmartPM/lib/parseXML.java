@@ -33,7 +33,6 @@ public class parseXML extends AsyncTask<String, Void, Void>{
 
 	@Override
 	protected Void doInBackground(String... params) {
-		// TODO Auto-generated method stub
 		 try {
             URL url = new URL(params[0]);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

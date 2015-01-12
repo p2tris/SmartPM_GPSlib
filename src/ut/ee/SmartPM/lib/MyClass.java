@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class MyClass implements LibInterface{
 	private final String libName = "GPS";
 	private final String libType = "String";
-	private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 3; // in Meters
+	private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
 	List<rulesObject<Double, Double, Double, Double, String>> locList = new ArrayList<rulesObject<Double, Double, Double, Double, String>>();
 
 		
@@ -24,7 +24,7 @@ public class MyClass implements LibInterface{
    		LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
 			outLoc = "Waiting for GPS";
-			CurrentLocationListener locationListener = new CurrentLocationListener(outLoc, autolabel, locList);
+			CurrentLocationListener locationListener = new CurrentLocationListener(outLoc, autolabel, locList, locationManager);
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,locationListener);    
 	    }else{
 	    	outLoc = "GPS is turned off";
